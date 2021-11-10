@@ -12,7 +12,9 @@ import { theme } from "./src/infrastructure/theme";
 import { Navigation } from "./src/infrastructure/navigation";
 
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
-import * as firebase from "firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCxZVSdtpIsTGKaANbE5k6lq4bGoiX5STA",
@@ -23,8 +25,12 @@ const firebaseConfig = {
   appId: "1:604961062692:web:bde45eb76c5cec94f97db1",
 };
 
+let app;
+
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+  app = firebase.initializeApp(firebaseConfig);
+} else {
+  app = firebase.app();
 }
 
 export default function App() {
